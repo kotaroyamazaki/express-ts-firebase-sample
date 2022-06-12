@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -9,8 +10,20 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
-const fb = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
-module.exports = {
-  fb,
+export const uploadFS = (
+  fileRef: string,
+  fileBuf: Blob | Uint8Array | ArrayBuffer,
+  onSuccsess?: () => void,
+  onError?: (error: Error) => void
+) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, fileRef);
+
+  uploadBytes(storageRef, fileBuf)
+    .then(() => onSuccsess && onSuccsess())
+    .catch((error) => {
+      onError && onError(error);
+    });
 };
