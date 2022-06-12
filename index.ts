@@ -12,4 +12,4 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use("/", require("./router.ts"));
 
-app.listen(3000);
+app.listen(PORT);
