@@ -9,7 +9,7 @@ router.get("/", (req: Request, res: Response) => {
 
 router.post("/upload", multer().single("file"), (req: any, res: Response) => {
   const fileBuf = req.file.buffer;
-  const fileRef = `express-sample/${req.file.originalname}`;
+  const fileRef = `${process.env.UPLOAD_BUCKE}/${req.file.originalname}`;
   uploadFS(fileRef, fileBuf)
     .then(() => {
       res.redirect("/success");
