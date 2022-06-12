@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, UploadResult } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -14,16 +14,10 @@ initializeApp(firebaseConfig);
 
 export const uploadFS = (
   fileRef: string,
-  fileBuf: Blob | Uint8Array | ArrayBuffer,
-  onSuccsess?: () => void,
-  onError?: (error: Error) => void
-) => {
+  fileBuf: Blob | Uint8Array | ArrayBuffer
+): Promise<UploadResult> => {
   const storage = getStorage();
   const storageRef = ref(storage, fileRef);
 
-  uploadBytes(storageRef, fileBuf)
-    .then(() => onSuccsess && onSuccsess())
-    .catch((error) => {
-      onError && onError(error);
-    });
+  return uploadBytes(storageRef, fileBuf);
 };
