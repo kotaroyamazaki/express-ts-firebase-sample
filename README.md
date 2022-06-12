@@ -2,7 +2,19 @@
 
 express \* typescript を用いた firebase sample
 
-# firebase storage
+# setup
+
+```
+npm i
+```
+
+# Run
+
+```
+ts-node index.ts
+```
+
+## firebase storage
 
 HTML から画像ファイルをアップロードする機能
 デフォルトでは firebase storage の公開ルールが厳しくなっているため、ルールを修正する必要がある。
