@@ -1,15 +1,8 @@
 import { Request, Response } from "express";
 import multer from "multer";
+import { db } from "./db";
 import { uploadFS } from "./firebase";
-const pgp = require("pg-promise")(/* options */);
-const connection = {
-  host: "localhost",
-  port: 5432,
-  database: "tocre",
-  user: "postgres",
-  password: "",
-};
-const db = pgp(connection);
+
 const router = require("express").Router();
 
 router.get("/", (req: Request, res: Response) => {
